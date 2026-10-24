@@ -1,0 +1,736 @@
+
+/* =====================================
+   1. CONFIGURAÇÕES GERAIS
+===================================== */
+
+:root {
+    --fundo: #0b1120;
+    --superficie: #151f32;
+    --superficie-clara: #1c2940;
+    --borda: #2b3a52;
+
+    --texto: #f1f5f9;
+    --texto-suave: #9cabc1;
+
+    --verde: #34d399;
+    --verde-fundo: rgba(52, 211, 153, 0.10);
+
+    --laranja: #fb923c;
+    --laranja-fundo: rgba(251, 146, 60, 0.10);
+
+    --vermelho: #fb7185;
+    --vermelho-fundo: rgba(251, 113, 133, 0.10);
+
+    --azul: #60a5fa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            ellipse at top left,
+            rgba(59, 130, 246, 0.10),
+            transparent 40%
+        ),
+        var(--fundo);
+
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* =====================================
+   2. CABEÇALHO
+===================================== */
+
+header {
+    padding: 36px 6%;
+    border-bottom: 1px solid var(--borda);
+    background: rgba(11, 17, 32, 0.85);
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 750;
+    letter-spacing: -1px;
+}
+
+header p {
+    margin: 8px 0 0;
+    color: var(--texto-suave);
+    font-size: 1rem;
+}
+
+/* =====================================
+   3. ÁREA PRINCIPAL
+===================================== */
+
+main {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 36px 6% 60px;
+    display: grid;
+    grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.5fr);
+    align-items: start;
+    gap: 28px;
+}
+
+section {
+    min-width: 0;
+}
+
+section h2 {
+    margin: 0 0 22px;
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+/* =====================================
+   4. FORMULÁRIO
+===================================== */
+
+#cadastro {
+    padding: 26px;
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+#form-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#form-evento label {
+    margin-top: 8px;
+    color: #dbe5f2;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#form-evento input,
+#form-evento textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    outline: none;
+
+    background: #0e1728;
+    color: var(--texto);
+
+    font: inherit;
+    font-size: 0.95rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#form-evento input:focus,
+#form-evento textarea:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.13);
+}
+
+#form-evento input {
+    min-height: 48px;
+}
+
+#form-evento input[type="date"] {
+    color-scheme: dark;
+}
+
+#form-evento textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+#form-evento button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* =====================================
+   5. BOTÕES
+===================================== */
+
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 43px;
+    padding: 10px 16px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(96, 165, 250, 0.7);
+    outline-offset: 3px;
+}
+
+#form-evento button[type="submit"] {
+    background: #3b82f6;
+    color: white;
+}
+
+#form-evento button[type="submit"]:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+#form-evento button[type="button"] {
+    background: var(--superficie-clara);
+    border-color: var(--borda);
+    color: var(--texto);
+}
+
+#form-evento button[type="button"]:hover {
+    background: #2a3a55;
+}
+
+button[hidden] {
+    display: none !important;
+}
+
+/* =====================================
+   6. LISTA DE EVENTOS
+===================================== */
+
+#eventos {
+    min-width: 0;
+}
+
+#lista-eventos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#lista-eventos > p {
+    grid-column: 1 / -1;
+    padding: 28px;
+    border: 1px dashed var(--borda);
+    border-radius: 14px;
+    color: var(--texto-suave);
+    text-align: center;
+}
+
+/* =====================================
+   7. CARTÕES DE EVENTOS
+===================================== */
+
+.evento-card {
+    position: relative;
+    min-width: 0;
+    padding: 22px;
+
+    overflow-wrap: anywhere;
+
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-left: 5px solid var(--verde);
+    border-radius: 15px;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.evento-card:hover {
+    transform: translateY(-3px);
+    background: #19253a;
+}
+
+.evento-card h3 {
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+    line-height: 1.4;
+}
+
+.evento-card p {
+    margin: 8px 0;
+    color: var(--texto-suave);
+    font-size: 0.92rem;
+    white-space: pre-wrap;
+}
+
+.evento-card .aviso-prazo {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 14px;
+    padding: 6px 11px;
+
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 750;
+}
+
+/* =====================================
+   8. CORES AUTOMÁTICAS
+===================================== */
+
+/* Verde: mais de 7 dias */
+
+.evento-card.status-verde {
+    border-left-color: var(--verde);
+    background: linear-gradient(
+        135deg,
+        var(--verde-fundo),
+        var(--superficie) 65%
+    );
+}
+
+.status-verde .aviso-prazo {
+    color: var(--verde);
+    background: rgba(52, 211, 153, 0.13);
+}
+
+/* Laranja: de 4 a 7 dias */
+
+.evento-card.status-laranja {
+    border-left-color: var(--laranja);
+    background: linear-gradient(
+        135deg,
+        var(--laranja-fundo),
+        var(--superficie) 65%
+    );
+}
+
+.status-laranja .aviso-prazo {
+    color: var(--laranja);
+    background: rgba(251, 146, 60, 0.13);
+}
+
+/* Vermelho: hoje ou nos próximos 3 dias */
+
+.evento-card.status-vermelho {
+    border-left-color: var(--vermelho);
+    background: linear-gradient(
+        135deg,
+        var(--vermelho-fundo),
+        var(--superficie) 65%
+    );
+}
+
+.status-vermelho .aviso-prazo {
+    color: var(--vermelho);
+    background: rgba(251, 113, 133, 0.13);
+}
+
+/* =====================================
+   9. AÇÕES DOS CARTÕES
+===================================== */
+
+.acoes-evento {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.acoes-evento button {
+    flex: 1;
+    min-width: 85px;
+}
+
+.acoes-evento button:first-child {
+    background: #243b5c;
+    border-color: #34547d;
+    color: #bfdbfe;
+}
+
+.acoes-evento button:first-child:hover {
+    background: #2d4c73;
+}
+
+.acoes-evento button:last-child {
+    background: rgba(251, 113, 133, 0.08);
+    border-color: rgba(251, 113, 133, 0.3);
+    color: #fda4af;
+}
+
+.acoes-evento button:last-child:hover {
+    background: rgba(251, 113, 133, 0.18);
+}
+
+/* =====================================
+   10. TELAS MENORES
+===================================== */
+
+@media (max-width: 1000px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    #cadastro {
+        max-width: none;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 26px 5%;
+    }
+
+    main {
+        padding: 25px 5% 40px;
+        gap: 30px;
+    }
+
+    #cadastro {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    #lista-eventos {
+        grid-template-columns: 1fr;
+    }
+
+    .evento-card {
+        padding: 19px;
+    }
+}
+
+/* =====================================
+   11. ACESSIBILIDADE
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+
+
+/* Botão de tela cheia */
+
+#botao-tela-cheia {
+    margin-top: 20px;
+    background: #1c2940;
+    color: #f1f5f9;
+    border: 1px solid #3b4d68;
+}
+
+#botao-tela-cheia:hover {
+    background: #2a3a55;
+}
+
+@media (min-width: 1001px) {
+    header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 24px;
+    }
+
+    header p {
+        flex-basis: 100%;
+        order: 2;
+        margin-top: -8px;
+    }
+
+    #botao-tela-cheia {
+        order: 1;
+        margin-top: 0;
+    }
+}
+
+
+/* =====================================
+   RESUMO DO PAINEL
+===================================== */
+
+#resumo {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    min-width: 0;
+}
+
+.resumo-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    background: var(--superficie);
+}
+
+.resumo-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    font-size: 1.5rem;
+}
+
+.resumo-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.resumo-card strong {
+    display: block;
+    margin: 3px 0;
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.resumo-card small {
+    display: block;
+    color: var(--texto-suave);
+    font-size: 0.78rem;
+}
+
+.resumo-verde {
+    border-top: 3px solid var(--verde);
+}
+
+.resumo-verde .resumo-icone {
+    background: var(--verde-fundo);
+}
+
+.resumo-verde strong {
+    color: var(--verde);
+}
+
+.resumo-laranja {
+    border-top: 3px solid var(--laranja);
+}
+
+.resumo-laranja .resumo-icone {
+    background: var(--laranja-fundo);
+}
+
+.resumo-laranja strong {
+    color: var(--laranja);
+}
+
+.resumo-vermelho {
+    border-top: 3px solid var(--vermelho);
+}
+
+.resumo-vermelho .resumo-icone {
+    background: var(--vermelho-fundo);
+}
+
+.resumo-vermelho strong {
+    color: var(--vermelho);
+}
+
+@media (max-width: 650px) {
+    #resumo {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .resumo-card {
+        padding: 17px;
+    }
+
+    .resumo-icone {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+
+/* =====================================
+   DESTAQUE DOS COMPROMISSOS DE HOJE
+===================================== */
+
+#destaque-hoje {
+    grid-column: 1 / -1;
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid rgba(251, 113, 133, 0.35);
+    border-radius: 18px;
+    background: linear-gradient(
+        120deg,
+        rgba(251, 113, 133, 0.10),
+        var(--superficie) 75%
+    );
+}
+
+.titulo-destaque {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.titulo-destaque > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(251, 113, 133, 0.13);
+    font-size: 1.5rem;
+}
+
+.titulo-destaque h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.titulo-destaque p {
+    margin: 4px 0 0;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+}
+
+#lista-hoje {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+#lista-hoje > p {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 16px;
+    border: 1px dashed var(--borda);
+    border-radius: 12px;
+    color: var(--texto-suave);
+}
+
+.evento-hoje {
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid rgba(251, 113, 133, 0.3);
+    border-left: 4px solid var(--vermelho);
+    border-radius: 12px;
+    background: rgba(11, 17, 32, 0.55);
+    overflow-wrap: anywhere;
+}
+
+.evento-hoje h3 {
+    margin: 0 0 8px;
+    color: #fda4af;
+    font-size: 1.05rem;
+}
+
+.evento-hoje p {
+    margin: 7px 0;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+}
+
+.evento-hoje .acoes-evento {
+    margin-top: 12px;
+}
+
+@media (max-width: 650px) {
+    #destaque-hoje {
+        padding: 18px;
+    }
+
+    #lista-hoje {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =====================================
+   MODO APRESENTAÇÃO PARA TV E MONITOR
+===================================== */
+
+#botao-apresentacao {
+    margin: 10px 5px;
+    padding: 12px 18px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background: var(--superficie-clara);
+    color: var(--texto);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#botao-apresentacao:hover {
+    filter: brightness(1.15);
+}
+
+/* Esconde o formulário durante a apresentação */
+body.modo-apresentacao #cadastro {
+    display: none;
+}
+
+/* Usa toda a largura disponível para os eventos */
+body.modo-apresentacao main {
+    grid-template-columns: 1fr;
+}
+
+/* Mantém os eventos ocupando o espaço disponível */
+body.modo-apresentacao #eventos {
+    grid-column: 1 / -1;
+}
+
+/* Deixa o painel mais limpo */
+body.modo-apresentacao header p {
+    display: none;
+}
+
+/* Aumenta um pouco os cartões na apresentação */
+body.modo-apresentacao .evento-card {
+    padding: 24px;
+}
+
+body.modo-apresentacao .evento-card h3 {
+    font-size: 22px;
+}
+
+/* Em telas menores, mantém o layout adaptável */
+@media (max-width: 700px) {
+    body.modo-apresentacao main {
+        grid-template-columns: 1fr;
+    }
+}

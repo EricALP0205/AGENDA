@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Datas Importantes</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Painel de Datas Importantes</h1>
+        <p>Acompanhe seus compromissos e prazos.</p>
+        
+        <button id="botao-tela-cheia" type="button">
+       ⛶ Ativar tela cheia
+        </button>
+
+        <button id="botao-apresentacao" type="button">
+    📺 Modo apresentação
+        </button>
+
+    </header>
+
+    <main>
+
+
+
+<section id="resumo" aria-label="Resumo dos eventos">
+    <article class="resumo-card resumo-verde">
+        <span class="resumo-icone">📅</span>
+        <div>
+            <p>Próximos</p>
+            <strong id="total-verde">0</strong>
+            <small>Mais de 7 dias</small>
+        </div>
+    </article>
+
+    <article class="resumo-card resumo-laranja">
+        <span class="resumo-icone">⏳</span>
+        <div>
+            <p>Atenção</p>
+            <strong id="total-laranja">0</strong>
+            <small>De 4 a 7 dias</small>
+        </div>
+    </article>
+
+    <article class="resumo-card resumo-vermelho">
+        <span class="resumo-icone">🚨</span>
+        <div>
+            <p>Urgentes</p>
+            <strong id="total-vermelho">0</strong>
+            <small>Hoje ou em até 3 dias</small>
+        </div>
+    </article>
+</section>
+
+
+
+
+<section id="destaque-hoje">
+    <div class="titulo-destaque">
+        <span>☀️</span>
+        <div>
+            <h2>Compromissos de hoje</h2>
+            <p>Eventos que precisam da sua atenção hoje.</p>
+        </div>
+    </div>
+
+    <div id="lista-hoje">
+        <p>Nenhum compromisso para hoje.</p>
+    </div>
+</section>
+
+
+
+
+        
+<section id="cadastro">
+    <h2>Adicionar evento</h2>
+
+    <form id="form-evento">
+        <label for="titulo">Título do evento</label>
+        <input
+            type="text"
+            id="titulo"
+            placeholder="Ex.: Prova de anatomia"
+            required
+        >
+
+        <label for="data">Data do evento</label>
+        <input type="date" id="data" required>
+
+        <label for="anotacao">Anotação</label>
+        <textarea
+            id="anotacao"
+            placeholder="Escreva os detalhes importantes..."
+            required
+        ></textarea>
+
+        <button type="submit">Adicionar evento</button>
+    </form>
+</section>
+
+
+        <section id="eventos">
+            <h2>Próximas datas</h2>
+            <div id="lista-eventos">
+                <!-- Os avisos aparecerão aqui -->
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
